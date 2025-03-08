@@ -77,8 +77,10 @@ public class Main {
 
                             case 5:
                                 citiesLoop = false;
+                                break;
                         }
                     }
+                    break;
                 case 2:
                     boolean passengerLoop = true;
                     while (passengerLoop) {
@@ -141,8 +143,10 @@ public class Main {
 
                             case 5:
                                 passengerLoop = false;
+                                break;
                         }
                     }
+                    break;
                 case 3:
                     boolean airportLoop = true;
                     while (airportLoop) {
@@ -201,8 +205,10 @@ public class Main {
 
                             case 5:
                                 airportLoop = false;
+                                break;
                         }
                     }
+                    break;
                     case 4:
                         boolean aircraftLoop = true;
                         while (aircraftLoop) {
@@ -252,6 +258,7 @@ public class Main {
 
                                 case 5:
                                     aircraftLoop = false;
+                                    break;
                             }
                         }
                         mainLoop = false;
