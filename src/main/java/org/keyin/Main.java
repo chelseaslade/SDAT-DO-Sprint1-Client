@@ -170,13 +170,17 @@ public class Main {
 
                             case 2:
                                 System.out.println("Add Airport");
-                                System.out.println("Enter airport name: ");
+                                System.out.print("Enter airport name: ");
                                 String airportName = scanner.nextLine();
-                                System.out.println("Enter airport city: ");
-                                String airportCity = scanner.nextLine();
-                                System.out.println("Enter airport code: ");
+                                System.out.print("Enter city ID where airport is located: ");
+                                Long cityId = scanner.nextLong();
+                                scanner.nextLine();
+                                System.out.print("Enter airport code: ");
                                 String airportCode = scanner.nextLine();
-                                String airportJSON = "{\"name\": \"" + airportName + "\", \"city\": \"" + airportCity + "\" + \"airportCode\": \"" + airportCode + "\"}";
+                                String airportJSON = String.format(
+                                        "{\"name\": \"%s\", \"city\": {\"id\": %d}, \"airportCode\": \"%s\"}",
+                                        airportName, cityId, airportCode
+                                );
                                 System.out.println(HttpClient.sendPostRequest(airportsURL, airportJSON));
                                 break;
 
@@ -190,16 +194,20 @@ public class Main {
 
                             case 4:
                                 System.out.println("Edit Airport: ");
-                                System.out.println("Enter airport ID to edit: ");
+                                System.out.print("Enter airport ID to edit: ");
                                 Long editId = scanner.nextLong();
                                 scanner.nextLine();
-                                System.out.println("Enter name of airport: ");
+                                System.out.print("Enter name of airport: ");
                                 String editName = scanner.nextLine();
-                                System.out.println("Enter city of airport: ");
-                                String editCity = scanner.nextLine();
-                                System.out.println("Enter airport code: ");
+                                System.out.print("Enter city ID of airport: ");
+                                Long editCityId = scanner.nextLong();
+                                scanner.nextLine();
+                                System.out.print("Enter airport code: ");
                                 String editCode = scanner.nextLine();
-                                String airportEditJSON = "{\"id\": " + editId + ", \"name\": \"" + editName + "\", \"city\": \"" + editCity + "\" + \"airportCode\": \"" + editCode + "\"}";
+                                String airportEditJSON = String.format(
+                                        "{\"id\": %d, \"name\": \"%s\", \"city\": {\"id\": %d}, \"airportCode\": \"%s\"}",
+                                        editId, editName, editCityId, editCode
+                                );
                                 System.out.println(HttpClient.sendPutRequest(airportsURL + "/" + editId, airportEditJSON));
                                 break;
 
