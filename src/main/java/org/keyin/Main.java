@@ -21,6 +21,8 @@ public class Main {
             System.out.print("Enter choice: ");
 
             int choice = scanner.nextInt();
+            scanner.nextLine();
+
             switch (choice) {
                 case 1:
                     boolean citiesLoop = true;
@@ -35,6 +37,8 @@ public class Main {
                         System.out.println("5. Exit to Main Menu");
 
                         int cityChoice = scanner.nextInt();
+                        scanner.nextLine();
+
                         switch (cityChoice) {
                             case 1:
                                 System.out.println("All Cities: ");
@@ -43,9 +47,9 @@ public class Main {
                             case 2:
                                 System.out.println("Add City");
                                 System.out.println("Enter city name: ");
-                                String cityName = scanner.next();
+                                String cityName = scanner.nextLine();
                                 System.out.println("Enter country of city: ");
-                                String cityCountry = scanner.next();
+                                String cityCountry = scanner.nextLine();
                                 String cityJSON = "{\"name\": \"" + cityName + "\", \"country\": \"" + cityCountry + "\"}";
                                 System.out.println(HttpClient.sendPostRequest(citiesURL, cityJSON));
                                 break;
@@ -54,6 +58,7 @@ public class Main {
                                 System.out.println("Delete City: ");
                                 System.out.println("Enter city ID to delete: ");
                                 Long deleteId = scanner.nextLong();
+                                scanner.nextLine();
                                 System.out.println(HttpClient.sendDeleteRequest(citiesURL + "/" + deleteId));
                                 break;
 
@@ -61,10 +66,11 @@ public class Main {
                                 System.out.println("Edit City: ");
                                 System.out.println("Enter city ID to edit: ");
                                 Long editId = scanner.nextLong();
+                                scanner.nextLine();
                                 System.out.println("Enter city name: ");
-                                String editCity = scanner.next();
+                                String editCity = scanner.nextLine();
                                 System.out.println("Enter country of city: ");
-                                String editCountry = scanner.next();
+                                String editCountry = scanner.nextLine();
                                 String cityEditJSON = "{\"id\": " + editId + ", \"name\": \"" + editCity + "\", \"country\": \"" + editCountry + "\"}";
                                 System.out.println(HttpClient.sendPutRequest(citiesURL + "/" + editId, cityEditJSON));
                                 break;
@@ -86,6 +92,8 @@ public class Main {
                         System.out.println("5. Exit to Main Menu");
 
                         int passengerChoice = scanner.nextInt();
+                        scanner.nextLine();
+
                         switch (passengerChoice) {
                             case 1:
                                 System.out.println("All Passengers: ");
@@ -95,10 +103,14 @@ public class Main {
                             case 2:
                                 System.out.println("Add Passenger");
                                 System.out.println("Enter passenger name: ");
-                                String passengerName = scanner.next();
-                                System.out.println("Enter passengers city: ");
-                                String passengerCity = scanner.next();
-                                String passengerJSON = "{\"name\": \"" + passengerName + "\", \"city\": \"" + passengerCity + "\"}";
+                                String passengerName = scanner.nextLine();
+                                System.out.println("Enter passengers city ID: ");
+                                Long passengerCityID = scanner.nextLong();
+                                scanner.nextLine();
+                                String passengerJSON = String.format(
+                                        "{\"name\": \"%s\", \"city\": {\"id\": %d}}",
+                                        passengerName, passengerCityID
+                                );
                                 System.out.println(HttpClient.sendPostRequest(passengersURL, passengerJSON));
                                 break;
 
@@ -106,6 +118,7 @@ public class Main {
                                 System.out.println("Delete Passenger: ");
                                 System.out.println("Enter passenger ID to delete: ");
                                 Long deleteId = scanner.nextLong();
+                                scanner.nextLine();
                                 System.out.println(HttpClient.sendDeleteRequest(passengersURL + "/" + deleteId));
                                 break;
 
@@ -113,11 +126,16 @@ public class Main {
                                 System.out.println("Edit Passenger: ");
                                 System.out.println("Enter passenger ID to edit: ");
                                 Long editId = scanner.nextLong();
+                                scanner.nextLine();
                                 System.out.println("Enter name of passenger: ");
-                                String editName = scanner.next();
-                                System.out.println("Enter city of passenger: ");
-                                String editCity = scanner.next();
-                                String passengerEditJSON = "{\"id\": " + editId + ", \"name\": \"" + editName + "\", \"city\": \"" + editCity + "\"}";
+                                String editName = scanner.nextLine();
+                                System.out.println("Enter city ID of passenger: ");
+                                Long editCityId = scanner.nextLong();
+                                scanner.nextLine();
+                                String passengerEditJSON = String.format(
+                                        "{\"id\": %d, \"name\": \"%s\", \"city\": {\"id\": %d}}",
+                                        editId, editName, editCityId
+                                );
                                 System.out.println(HttpClient.sendPutRequest(passengersURL + "/" + editId, passengerEditJSON));
                                 break;
 
@@ -138,6 +156,8 @@ public class Main {
                         System.out.println("5. Exit to Main Menu");
 
                         int airportChoice = scanner.nextInt();
+                        scanner.nextLine();
+
                         switch (airportChoice) {
                             case 1:
                                 System.out.println("All Airports: ");
@@ -147,11 +167,11 @@ public class Main {
                             case 2:
                                 System.out.println("Add Airport");
                                 System.out.println("Enter airport name: ");
-                                String airportName = scanner.next();
+                                String airportName = scanner.nextLine();
                                 System.out.println("Enter airport city: ");
-                                String airportCity = scanner.next();
+                                String airportCity = scanner.nextLine();
                                 System.out.println("Enter airport code: ");
-                                String airportCode = scanner.next();
+                                String airportCode = scanner.nextLine();
                                 String airportJSON = "{\"name\": \"" + airportName + "\", \"city\": \"" + airportCity + "\" + \"airportCode\": \"" + airportCode + "\"}";
                                 System.out.println(HttpClient.sendPostRequest(airportsURL, airportJSON));
                                 break;
@@ -160,6 +180,7 @@ public class Main {
                                 System.out.println("Delete Airport: ");
                                 System.out.println("Enter airport ID to delete: ");
                                 Long deleteId = scanner.nextLong();
+                                scanner.nextLine();
                                 System.out.println(HttpClient.sendDeleteRequest(airportsURL + "/" + deleteId));
                                 break;
 
@@ -167,12 +188,13 @@ public class Main {
                                 System.out.println("Edit Airport: ");
                                 System.out.println("Enter airport ID to edit: ");
                                 Long editId = scanner.nextLong();
+                                scanner.nextLine();
                                 System.out.println("Enter name of airport: ");
-                                String editName = scanner.next();
+                                String editName = scanner.nextLine();
                                 System.out.println("Enter city of airport: ");
-                                String editCity = scanner.next();
+                                String editCity = scanner.nextLine();
                                 System.out.println("Enter airport code: ");
-                                String editCode = scanner.next();
+                                String editCode = scanner.nextLine();
                                 String airportEditJSON = "{\"id\": " + editId + ", \"name\": \"" + editName + "\", \"city\": \"" + editCity + "\" + \"airportCode\": \"" + editCode + "\"}";
                                 System.out.println(HttpClient.sendPutRequest(airportsURL + "/" + editId, airportEditJSON));
                                 break;
@@ -181,6 +203,57 @@ public class Main {
                                 airportLoop = false;
                         }
                     }
+                    case 4:
+                        boolean aircraftLoop = true;
+                        while (aircraftLoop) {
+                            String aircraftURL = API_BASE_URL + "aircraft";
+
+                            System.out.println("Manage Aircraft");
+                            System.out.println("1. List All Aircraft");
+                            System.out.println("2. Add Aircraft");
+                            System.out.println("3. Delete Aircraft");
+                            System.out.println("4. Edit Aircraft");
+                            System.out.println("5. Exit to Main Menu");
+
+                            int aircraftChoice = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch (aircraftChoice) {
+                                case 1:
+                                    System.out.println("All Aircraft: ");
+                                    System.out.println(HttpClient.sendGetRequest(aircraftURL));
+                                    break;
+                                case 2:
+                                    System.out.println("Add Aircraft");
+                                    System.out.println("Enter aircraft name: ");
+                                    String aircraftName = scanner.nextLine();
+                                    String aircraftJSON = "{\"name\": \"" + aircraftName + "\"}";
+                                    System.out.println(HttpClient.sendPostRequest(aircraftURL, aircraftJSON));
+                                    break;
+
+                                case 3:
+                                    System.out.println("Delete Aircraft: ");
+                                    System.out.println("Enter aircraft ID to delete: ");
+                                    Long deleteId = scanner.nextLong();
+                                    scanner.nextLine();
+                                    System.out.println(HttpClient.sendDeleteRequest(aircraftURL + "/" + deleteId));
+                                    break;
+
+                                case 4:
+                                    System.out.println("Edit Aircraft: ");
+                                    System.out.println("Enter aircraft ID to edit: ");
+                                    Long editId = scanner.nextLong();
+                                    scanner.nextLine();
+                                    System.out.println("Enter aircraft name: ");
+                                    String editName = scanner.nextLine();
+                                    String aircraftEditJSON = "{\"id\": " + editId + ", \"name\": \"" + editName + "\"}";
+                                    System.out.println(HttpClient.sendPutRequest(aircraftURL + "/" + editId, aircraftEditJSON));
+                                    break;
+
+                                case 5:
+                                    aircraftLoop = false;
+                            }
+                        }
                         mainLoop = false;
                     }
             }
